@@ -7,10 +7,10 @@ def ejercicio_4():
     print("\n--- EJERCICIO 4: ESCAPE ROOM - LA BÓVEDA ---")
     
     # 1. Validación del nombre del agente
-    nombre_agente = input("Nombre del agente: ")
-    while not nombre_agente.isalpha():
-        print("Error: El nombre debe contener solo letras.")
-        nombre_agente = input("Nombre del agente: ")
+    jugador = input("Nombre del agente: ")
+    while not jugador.isalpha():
+        print("Solo se permiten letras.")
+        jugador = input("Nombre del agente: ")
     
     # Variables iniciales del juego
     energia = 100
@@ -20,7 +20,7 @@ def ejercicio_4():
     codigo_parcial = ""
     racha_forzar = 0  # Contador para regla anti-spam
     
-    print(f"\n¡Bienvenido Agente {nombre_agente}! Tu misión es abrir las 3 cerraduras de la bóveda.")
+    print(f"\n¡Bienvenido Agente {jugador}! Tu misión es abrir las 3 cerraduras de la bóveda.")
     
     # Bucle del juego
     juego_terminado = False
@@ -37,7 +37,7 @@ def ejercicio_4():
         
         opc_str = input("Elige una acción (1-3): ")
         while not opc_str.isdigit() or int(opc_str) < 1 or int(opc_str) > 3:
-            print("Error: Seleccione una opción válida (1, 2 o 3).")
+            print("Seleccione una opción válida (1, 2 o 3).")
             opc_str = input("Elige una acción (1-3): ")
             
         opcion = int(opc_str)
@@ -58,7 +58,7 @@ def ejercicio_4():
                     print("¡ADVERTENCIA: Energía baja! Hay riesgo de alarma.")
                     num_str = input("Elige un número de seguridad (1-3): ")
                     while not num_str.isdigit() or int(num_str) < 1 or int(num_str) > 3:
-                        print("Error: Debe ser un número entre 1 y 3.")
+                        print("Debe ser un número entre 1 y 3.")
                         num_str = input("Elige un número de seguridad (1-3): ")
                     
                     if int(num_str) == 3:
@@ -120,7 +120,7 @@ def ejercicio_4():
     # Mostrar resultado final
     print("\n" + "="*45)
     if motivo_fin == "VICTORIA":
-        print(f"¡VICTORIA! ¡Felicitaciones Agente {nombre_agente}, has abierto la bóveda con éxito!")
+        print(f"¡VICTORIA! ¡Felicitaciones Agente {jugador}, has abierto la bóveda con éxito!")
     elif motivo_fin == "DERROTA_BLOQUEO":
         print("DERROTA. El sistema se bloqueó por la alarma con poco tiempo restante.")
     else:

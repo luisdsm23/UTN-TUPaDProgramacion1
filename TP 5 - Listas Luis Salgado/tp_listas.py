@@ -41,7 +41,7 @@ print("\n--- CARGA DE 5 PRODUCTOS ---")
 for i in range(5):
     prod = input(f"Ingrese el nombre del producto {i + 1}: ")
     while prod.strip() == "":
-        print("Error: El nombre del producto no puede estar vacío.")
+        print("El nombre del producto no puede estar vacío.")
         prod = input(f"Ingrese el nombre del producto {i + 1}: ")
     productos.append(prod)
 
@@ -299,18 +299,18 @@ while jugadas < 9:
     c_str = input("Ingrese columna (0, 1, 2): ")
     
     if not (f_str.isdigit() and c_str.isdigit()):
-        print("Error: Debe ingresar números del 0 al 2.")
+        print("Debe ingresar números del 0 al 2.")
         continue
         
     fila = int(f_str)
     col = int(c_str)
     
     if fila < 0 or fila > 2 or col < 0 or col > 2:
-        print("Error: Posición fuera del tablero.")
+        print("Posición fuera del tablero.")
         continue
         
     if tablero[fila][col] != "-":
-        print("Error: Esa casilla ya está ocupada.")
+        print("Esa casilla ya está ocupada.")
         continue
         
     tablero[fila][col] = turno
@@ -425,7 +425,7 @@ print("\n--- INGRESO DE 8 NÚMEROS ENTEROS ---")
 for i in range(8):
     num_str = input(f"Ingrese el número entero {i + 1}/8: ")
     while not num_str.lstrip("-").isdigit() or num_str.strip() == "":
-        print("Error: Debe ingresar un número entero válido.")
+        print("Debe ingresar un número entero válido.")
         num_str = input(f"Ingrese el número entero {i + 1}/8: ")
     numeros_usuario.append(int(num_str))
 

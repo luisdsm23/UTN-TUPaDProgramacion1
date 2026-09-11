@@ -9,7 +9,7 @@ def ejercicio_5():
     # Paso 1: Configuración del Personaje
     nombre_gladiador = input("Nombre del Gladiador: ")
     while not nombre_gladiador.isalpha():
-        print("Error: Solo se permiten letras.")
+        print("Solo se permiten letras.")
         nombre_gladiador = input("Nombre del Gladiador: ")
         
     # Paso 2: Inicialización de Estadísticas (Variables tipadas)
@@ -38,7 +38,7 @@ def ejercicio_5():
             # Validación de la opción elegida
             opc_str = input("Opción: ")
             while not opc_str.isdigit() or int(opc_str) < 1 or int(opc_str) > 3:
-                print("Error: Ingrese un número válido.")
+                print("Ingrese un número válido.")
                 opc_str = input("Opción: ")
                 
             opcion = int(opc_str)

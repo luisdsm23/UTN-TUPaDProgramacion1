@@ -9,13 +9,13 @@ def ejercicio_1():
     # 1. Validación del nombre del cliente (solo letras y no vacío)
     nombre_cliente = input("Cliente: ")
     while not nombre_cliente.isalpha():
-        print("Error: El nombre debe contener solo letras y no puede estar vacío.")
+        print("Solo se permiten letras y no puede quedar vacío.")
         nombre_cliente = input("Cliente: ")
     
     # 2. Validación de la cantidad de productos (> 0 y solo dígitos)
     cantidad = input("Cantidad de productos: ")
     while not cantidad.isdigit() or int(cantidad) <= 0:
-        print("Error: Ingrese una cantidad entera positiva mayor a 0.")
+        print("Ingrese una cantidad entera positiva mayor a 0.")
         cantidad = input("Cantidad de productos: ")
     
     cantidad_productos = int(cantidad)
@@ -29,7 +29,7 @@ def ejercicio_1():
         # Validación del precio del producto
         precio = input(f"Producto {i} - Precio: ")
         while not precio.isdigit() or int(precio) <= 0:
-            print("Error: Ingrese un precio válido (número entero positivo).")
+            print("Ingrese un precio válido (número entero positivo).")
             precio = input(f"Producto {i} - Precio: ")
         
         precio = int(precio)
@@ -38,7 +38,7 @@ def ejercicio_1():
         # Validación de respuesta de descuento (S/N)
         desc_resp = input(f"Producto {i} - Descuento (S/N): ").lower()
         while desc_resp != "s" and desc_resp != "n":
-            print("Error: Ingrese 'S' para Sí o 'N' para No.")
+            print("Ingrese 'S' para Sí o 'N' para No.")
             desc_resp = input(f"Producto {i} - Descuento (S/N): ").lower()
         
         # Aplicación del 10% de descuento si corresponde

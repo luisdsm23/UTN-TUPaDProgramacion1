@@ -19,12 +19,12 @@
 
 nombre_cliente = input("Cliente: ")
 while not nombre_cliente.isalpha():
-    print("Error: Solo se permiten letras y no puede quedar vacío.")
+    print("Solo se permiten letras y no puede quedar vacío.")
     nombre_cliente = input("Cliente: ")
 
 cantidad = input("Cantidad de productos: ")
 while not cantidad.isdigit() or int(cantidad) <= 0:
-    print("Error: Ingrese una cantidad válida mayor a 0.")
+    print("Ingrese una cantidad válida mayor a 0.")
     cantidad = input("Cantidad de productos: ")
 cantidad = int(cantidad)
 
@@ -34,7 +34,7 @@ total_con_descuentos = 0.0
 for i in range(1, cantidad + 1):
     precio = input(f"Producto {i} - Precio: ")
     while not precio.isdigit() or int(precio) <= 0:
-        print("Error: Ingrese un precio numérico válido.")
+        print("Ingrese un precio numérico válido.")
         precio = input(f"Producto {i} - Precio: ")
     precio = int(precio)
     
@@ -42,7 +42,7 @@ for i in range(1, cantidad + 1):
 
     descuento = input(f"Producto {i} - Descuento (S/N): ").lower()
     while descuento != "s" and descuento != "n":
-        print("Error: Ingrese 's' para Sí o 'n' para No.")
+        print("Ingrese 's' para Sí o 'n' para No.")
         descuento = input(f"Producto {i} - Descuento (S/N): ").lower()
 
     if descuento == "s":
@@ -75,24 +75,24 @@ print(f"Promedio por producto: ${promedio:.2f}")
 #5. Validación del menú: Debe ser número (.isdigit()) y estar entre 1 y 4
 #Cambio de clave: La nueva clave debe tener mínimo 6 caracteres (validar con len()), si no, rechazar.
 
-usuario_correcto = "alumno"
-clave_correcta = "python123"
+usuario = "alumno"
+clave = "python123"
 intentos = 0
-ingreso_exitoso = False
+ingreso = False
 
-while intentos < 3 and not ingreso_exitoso:
+while intentos < 3 and not ingreso:
     intentos += 1
     print(f"Intento {intentos}/3")
     user = input("Usuario: ")
     passw = input("Clave: ")
     
-    if user == usuario_correcto and passw == clave_correcta:
-        ingreso_exitoso = True
+    if user == usuario and passw == clave:
+        ingreso = True
         print("Acceso concedido.")
     else:
-        print("Error: credenciales inválidas.")
+        print("Credenciales inválidas.")
 
-if not ingreso_exitoso:
+if not ingreso:
     print("Cuenta bloqueada")
 else:
     opcion = 0
@@ -101,9 +101,9 @@ else:
         opc_str = input("Opción: ")
         
         if not opc_str.isdigit():
-            print("Error: ingrese un número válido.")
+            print("Ingrese un número válido.")
         elif int(opc_str) < 1 or int(opc_str) > 4:
-            print("Error: opción fuera de rango.")
+            print("Opción fuera de rango.")
         else:
             opcion = int(opc_str)
             if opcion == 1:
@@ -111,14 +111,14 @@ else:
             elif opcion == 2:
                 nueva_clave = input("Nueva clave: ")
                 if len(nueva_clave) < 6:
-                    print("Error: mínimo 6 caracteres.")
+                    print("Mínimo 6 caracteres.")
                 else:
                     confirmacion = input("Confirmar clave: ")
                     if nueva_clave == confirmacion:
-                        clave_correcta = nueva_clave
+                        clave = nueva_clave
                         print("Clave actualizada con éxito.")
                     else:
-                        print("Error: las claves no coinciden.")
+                        print("Las claves no coinciden.")
             elif opcion == 3:
                 print("Frase: 'El esfuerzo de hoy es el éxito del mañana.'")
             elif opcion == 4:
@@ -154,7 +154,7 @@ martes3 = ""
 
 operador = input("Nombre del operador: ")
 while not operador.isalpha():
-    print("Error: Solo se permiten letras.")
+    print("Solo se permiten letras.")
     operador = input("Nombre del operador: ")
 
 opcion_menu = 0
@@ -167,24 +167,24 @@ while opcion_menu != 5:
     
     opc = input("Opción: ")
     while not opc.isdigit() or int(opc) < 1 or int(opc) > 5:
-        print("Error: Ingrese una opción entre 1 y 5.")
+        print("Ingrese una opción entre 1 y 5.")
         opc = input("Opción: ")
     opcion_menu = int(opc)
 
     if opcion_menu == 1:
         dia = input("Elegir día (1=Lunes, 2=Martes): ")
         while dia != "1" and dia != "2":
-            print("Error: Opción inválida. Ingrese 1 o 2.")
+            print("Opción inválida. Ingrese 1 o 2.")
             dia = input("Elegir día (1=Lunes, 2=Martes): ")
             
         paciente = input("Nombre del paciente: ")
         while not paciente.isalpha():
-            print("Error: Solo se permiten letras.")
+            print("Solo se permiten letras.")
             paciente = input("Nombre del paciente: ")
 
         if dia == "1":
             if paciente == lunes1 or paciente == lunes2 or paciente == lunes3 or paciente == lunes4:
-                print("Error: El paciente ya tiene turno el día Lunes.")
+                print("El paciente ya tiene turno el día Lunes.")
             elif lunes1 == "":
                 lunes1 = paciente
                 print(f"Turno 1 asignado a {paciente}")
@@ -201,7 +201,7 @@ while opcion_menu != 5:
                 print("No hay cupos disponibles el día Lunes.")
         else:
             if paciente == martes1 or paciente == martes2 or paciente == martes3:
-                print("Error: El paciente ya tiene turno el día Martes.")
+                print("El paciente ya tiene turno el día Martes.")
             elif martes1 == "":
                 martes1 = paciente
                 print(f"Turno 1 asignado a {paciente}")
@@ -217,12 +217,12 @@ while opcion_menu != 5:
     elif opcion_menu == 2:
         dia = input("Elegir día (1=Lunes, 2=Martes): ")
         while dia != "1" and dia != "2":
-            print("Error: Opción inválida. Ingrese 1 o 2.")
+            print("Opción inválida. Ingrese 1 o 2.")
             dia = input("Elegir día (1=Lunes, 2=Martes): ")
             
         paciente = input("Nombre del paciente a cancelar: ")
         while not paciente.isalpha():
-            print("Error: Solo se permiten letras.")
+            print("Solo se permiten letras.")
             paciente = input("Nombre del paciente a cancelar: ")
 
         cancelado = False
@@ -258,7 +258,7 @@ while opcion_menu != 5:
     elif opcion_menu == 3:
         dia = input("Elegir día (1=Lunes, 2=Martes): ")
         while dia != "1" and dia != "2":
-            print("Error: Opción inválida. Ingrese 1 o 2.")
+            print("Opción inválida. Ingrese 1 o 2.")
             dia = input("Elegir día (1=Lunes, 2=Martes): ")
             
         if dia == "1":
@@ -314,10 +314,10 @@ while opcion_menu != 5:
 #Regla de bloqueo por alarma: Si alarma == True y tiempo <= 3 y no abrió la bóveda, sistema se bloquea y se pierde.
 #Condiciones de fin: cerraduras == 3 -> VICTORIA / energia <= 0 o tiempo <= 0 -> DERROTA / bloqueo por alarma -> DERROTA.
 
-nombre_agente = input("Nombre del agente: ")
-while not nombre_agente.isalpha():
-    print("Error: Solo se permiten letras.")
-    nombre_agente = input("Nombre del agente: ")
+jugador = input("Nombre del agente: ")
+while not jugador.isalpha():
+    print("Solo se permiten letras.")
+    jugador = input("Nombre del agente: ")
 
 energia = 100
 tiempo = 12
@@ -334,7 +334,7 @@ while energia > 0 and tiempo > 0 and cerraduras_abiertas < 3 and not (alarma and
     
     opc = input("Opción: ")
     while not opc.isdigit() or int(opc) < 1 or int(opc) > 3:
-        print("Error: Ingrese una opción válida (1-3).")
+        print("Ingrese una opción válida (1-3).")
         opc = input("Opción: ")
     opcion = int(opc)
 
@@ -351,7 +351,7 @@ while energia > 0 and tiempo > 0 and cerraduras_abiertas < 3 and not (alarma and
                 print("¡Riesgo de alarma por baja energía!")
                 riesgo = input("Elige un número de seguridad (1-3): ")
                 while not riesgo.isdigit() or int(riesgo) < 1 or int(riesgo) > 3:
-                    print("Error: Debe ser un número del 1 al 3.")
+                    print("Debe ser un número del 1 al 3.")
                     riesgo = input("Elige un número de seguridad (1-3): ")
                 if int(riesgo) == 3:
                     alarma = True
@@ -416,7 +416,7 @@ else:
 print("--- BIENVENIDO A LA ARENA ---")
 nombre = input("Nombre del Gladiador: ")
 while not nombre.isalpha():
-    print("Error: Solo se permiten letras.")
+    print("Solo se permiten letras.")
     nombre = input("Nombre del Gladiador: ")
 
 # Tipos de datos solicitados:
@@ -439,7 +439,7 @@ while vida_jugador > 0 and vida_enemigo > 0:
     
     opc = input("Opción: ")
     while not opc.isdigit() or int(opc) < 1 or int(opc) > 3:
-        print("Error: Ingrese un número válido.")
+        print("Ingrese un número válido.")
         opc = input("Opción: ")
     opcion = int(opc)
 

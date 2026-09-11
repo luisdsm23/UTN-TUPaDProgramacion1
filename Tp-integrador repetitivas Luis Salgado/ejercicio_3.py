@@ -23,7 +23,7 @@ def ejercicio_3():
     # 1. Pedir y validar nombre del operador
     operador = input("Nombre del operador: ")
     while not operador.isalpha():
-        print("Error: El nombre del operador solo debe contener letras.")
+        print("Solo se permiten letras.")
         operador = input("Nombre del operador: ")
     
     print(f"\nBienvenido/a, operador/a {operador}.")
@@ -41,7 +41,7 @@ def ejercicio_3():
         
         opc_str = input("Opción: ")
         while not opc_str.isdigit() or int(opc_str) < 1 or int(opc_str) > 5:
-            print("Error: Ingrese una opción numérica válida (1 al 5).")
+            print("Ingrese una opción numérica válida (1 al 5).")
             opc_str = input("Opción: ")
         
         opcion = int(opc_str)
@@ -51,12 +51,12 @@ def ejercicio_3():
             print("\n--- Reservar Turno ---")
             dia_str = input("Elija día (1=Lunes, 2=Martes): ")
             while dia_str != "1" and dia_str != "2":
-                print("Error: Opción de día inválida. Debe ser 1 o 2.")
+                print("Opción de día inválida. Debe ser 1 o 2.")
                 dia_str = input("Elija día (1=Lunes, 2=Martes): ")
             
             nombre_paciente = input("Nombre del paciente: ")
             while not nombre_paciente.isalpha():
-                print("Error: El nombre debe contener solo letras.")
+                print("Solo se permiten letras.")
                 nombre_paciente = input("Nombre del paciente: ")
             
             nombre_paciente_limpio = nombre_paciente.capitalize()
@@ -67,7 +67,7 @@ def ejercicio_3():
                     nombre_paciente_limpio == lunes2 or 
                     nombre_paciente_limpio == lunes3 or 
                     nombre_paciente_limpio == lunes4):
-                    print(f"Error: El paciente '{nombre_paciente_limpio}' ya tiene un turno reservado el Lunes.")
+                    print(f"El paciente '{nombre_paciente_limpio}' ya tiene un turno reservado el Lunes.")
                 # Asignar en el primer espacio libre
                 elif lunes1 == "":
                     lunes1 = nombre_paciente_limpio
@@ -89,7 +89,7 @@ def ejercicio_3():
                 if (nombre_paciente_limpio == martes1 or 
                     nombre_paciente_limpio == martes2 or 
                     nombre_paciente_limpio == martes3):
-                    print(f"Error: El paciente '{nombre_paciente_limpio}' ya tiene un turno reservado el Martes.")
+                    print(f"El paciente '{nombre_paciente_limpio}' ya tiene un turno reservado el Martes.")
                 # Asignar en el primer espacio libre
                 elif martes1 == "":
                     martes1 = nombre_paciente_limpio
@@ -108,12 +108,12 @@ def ejercicio_3():
             print("\n--- Cancelar Turno ---")
             dia_str = input("Elija día (1=Lunes, 2=Martes): ")
             while dia_str != "1" and dia_str != "2":
-                print("Error: Opción de día inválida. Debe ser 1 o 2.")
+                print("Opción de día inválida. Debe ser 1 o 2.")
                 dia_str = input("Elija día (1=Lunes, 2=Martes): ")
             
             nombre_paciente = input("Nombre del paciente a cancelar: ")
             while not nombre_paciente.isalpha():
-                print("Error: El nombre debe contener solo letras.")
+                print("Solo se permiten letras.")
                 nombre_paciente = input("Nombre del paciente a cancelar: ")
             
             nombre_paciente_limpio = nombre_paciente.capitalize()
@@ -153,7 +153,7 @@ def ejercicio_3():
             print("\n--- Ver Agenda del Día ---")
             dia_str = input("Elija día (1=Lunes, 2=Martes): ")
             while dia_str != "1" and dia_str != "2":
-                print("Error: Opción de día inválida. Debe ser 1 o 2.")
+                print("Opción de día inválida. Debe ser 1 o 2.")
                 dia_str = input("Elija día (1=Lunes, 2=Martes): ")
             
             if dia_str == "1":
