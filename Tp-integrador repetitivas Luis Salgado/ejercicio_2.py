@@ -1,73 +1,66 @@
-# ==============================================================================
-# EJERCICIO 2 — “Acceso al Campus y Menú Seguro”
-# Objetivo: Login con intentos + menú de acciones con validación estricta.
-# ==============================================================================
+#2) Ejercicio 2 — “Acceso al Campus y Menú Seguro”
+#Objetivo: Login con intentos + menú de acciones con validación estricta.
+#Requisitos:
+#1. Definir credenciales fijas en el código: usuario correcto: "alumno", clave correcta: "python123"
+#2. Permitir máximo 3 intentos para ingresar usuario y clave.
+#3. Si falla 3 veces: mostrar “Cuenta bloqueada” y terminar.
+#4. Si ingresa bien: mostrar un menú repetitivo (usar while) hasta elegir salir:
+#   1. Ver estado de inscripción (mostrar “Inscripto”)
+#   2. Cambiar clave (pedir nueva clave y confirmación; deben coincidir)
+#   3. Mostrar mensaje motivacional (1 frase)
+#   4. Salir
+#5. Validación del menú: Debe ser número (.isdigit()) y estar entre 1 y 4
+#Cambio de clave: La nueva clave debe tener mínimo 6 caracteres (validar con len()), si no, rechazar.
 
-def ejercicio_2():
-    print("\n--- EJERCICIO 2: ACCESO AL CAMPUS Y MENÚ SEGURO ---")
+usuario = "alumno"
+clave = "python123"
+intentos = 0
+ingreso = False
+
+while intentos < 3 and not ingreso:
+    intentos += 1
+    print(f"Intento {intentos}/3")
+    user = input("Usuario: ")
+    passw = input("Clave: ")
     
-    # 1. Credenciales fijas
-    usuario = "alumno"
-    clave = "python123"
-    
-    intentos = 0
-    ingreso = False
-    
-    # 2. Sistema de autenticación con máximo 3 intentos
-    while intentos < 3 and not ingreso:
-        intentos += 1
-        print(f"\nIntento {intentos}/3")
-        user = input("Usuario: ")
-        passw = input("Clave: ")
+    if user == usuario and passw == clave:
+        ingreso = True
+        print("Acceso concedido.")
+    else:
+        print("Credenciales inválidas.")
+
+if not ingreso:
+    print("Cuenta bloqueada")
+else:
+    opcion = 0
+    while opcion != 4:
+        print("\n1) Estado 2) Cambiar clave 3) Mensaje 4) Salir")
+        opc_str = input("Opción: ")
         
-        if user == usuario and passw == clave:
-            ingreso = True
-            print("Acceso concedido.")
-        else:
-            print("Credenciales inválidas.")
-    
-    # 3. Verificación de bloqueo
-    if not ingreso:
-        print("\nCuenta bloqueada")
-        return
-    
-    # 4. Menú de opciones (bucle while)
-    salir = False
-    while not salir:
-        print("\n" + "="*40)
-        print("1) Estado  2) Cambiar clave  3) Mensaje  4) Salir")
-        opcion_str = input("Opción: ")
-        
-        # 5. Validación de la opción elegida
-        if not opcion_str.isdigit():
+        if not opc_str.isdigit():
             print("Ingrese un número válido.")
-            continue
-        
-        opcion = int(opcion_str)
-        if opcion < 1 or opcion > 4:
+        elif int(opc_str) < 1 or int(opc_str) > 4:
             print("Opción fuera de rango.")
-            continue
-        
-        # Ejecución de la opción
-        if opcion == 1:
-            print("\nEstado de inscripción: Inscripto")
-        elif opcion == 2:
-            nueva_clave = input("Nueva clave: ")
-            # Validación de longitud mínima de 6 caracteres
-            if len(nueva_clave) < 6:
-                print("Mínimo 6 caracteres.")
-            else:
-                confirmacion = input("Confirmar nueva clave: ")
-                if nueva_clave == confirmacion:
-                    clave = nueva_clave
-                    print("Clave cambiada con éxito.")
+        else:
+            opcion = int(opc_str)
+            if opcion == 1:
+                print("Inscripto")
+            elif opcion == 2:
+                nueva_clave = input("Nueva clave: ")
+                if len(nueva_clave) < 6:
+                    print("Mínimo 6 caracteres.")
                 else:
-                    print("Las contraseñas no coinciden.")
-        elif opcion == 3:
-            print("\nFrase motivacional: 'El éxito es la suma de pequeños esfuerzos repetidos día tras día.'")
-        elif opcion == 4:
-            print("\nCerrando sesión del campus...")
-            salir = True
+                    confirmacion = input("Confirmar clave: ")
+                    if nueva_clave == confirmacion:
+                        clave = nueva_clave
+                        print("Clave actualizada con éxito.")
+                    else:
+                        print("Las claves no coinciden.")
+            elif opcion == 3:
+                print("Frase: 'El esfuerzo de hoy es el éxito del mañana.'")
+            elif opcion == 4:
+                print("Sesión cerrada.")
 
-if __name__ == "__main__":
-    ejercicio_2()
+salir = input("\nMarque 0 para salir de la terminal: ")
+while salir != "0":
+    salir = input("Marque 0 para salir de la terminal: ")

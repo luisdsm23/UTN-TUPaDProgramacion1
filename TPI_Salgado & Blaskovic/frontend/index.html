@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Países | TPI Programación 1 - UTN</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Encabezado de la Aplicación -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">🌐</div>
+        <div>
+          <h1>Gestión de Países</h1>
+          <p class="subtitle">Trabajo Práctico Integrador • Programación 1 • UTN</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <label for="csv-file-input" class="btn btn-secondary">
+          <span aria-hidden="true">📂</span> Cargar CSV
+        </label>
+        <input type="file" id="csv-file-input" accept=".csv" class="visually-hidden">
+        
+        <button type="button" id="btn-descargar-csv" class="btn btn-secondary">
+          <span aria-hidden="true">💾</span> Exportar CSV
+        </button>
+
+        <button type="button" id="btn-abrir-agregar" class="btn btn-primary">
+          <span aria-hidden="true">➕</span> Nuevo País
+        </button>
+
+        <button type="button" id="btn-toggle-theme" class="btn btn-icon" aria-label="Cambiar tema de color" title="Alternar tema oscuro/claro">
+          🌓
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    
+    <!-- Tarjetas de Estadísticas KPI -->
+    <section class="kpi-grid" aria-label="Métricas Principales">
+      <article class="kpi-card">
+        <span class="kpi-icon">🌍</span>
+        <div class="kpi-info">
+          <span class="kpi-label">Total Países</span>
+          <span class="kpi-value" id="kpi-total">0</span>
+        </div>
+      </article>
+
+      <article class="kpi-card">
+        <span class="kpi-icon">📈</span>
+        <div class="kpi-info">
+          <span class="kpi-label">Mayor Población</span>
+          <span class="kpi-value" id="kpi-mayor-pob">-</span>
+          <span class="kpi-sub" id="kpi-mayor-pob-sub">-</span>
+        </div>
+      </article>
+
+      <article class="kpi-card">
+        <span class="kpi-icon">📉</span>
+        <div class="kpi-info">
+          <span class="kpi-label">Menor Población</span>
+          <span class="kpi-value" id="kpi-menor-pob">-</span>
+          <span class="kpi-sub" id="kpi-menor-pob-sub">-</span>
+        </div>
+      </article>
+
+      <article class="kpi-card">
+        <span class="kpi-icon">👥</span>
+        <div class="kpi-info">
+          <span class="kpi-label">Promedio Población</span>
+          <span class="kpi-value" id="kpi-prom-pob">-</span>
+        </div>
+      </article>
+
+      <article class="kpi-card">
+        <span class="kpi-icon">🗺️</span>
+        <div class="kpi-info">
+          <span class="kpi-label">Promedio Superficie</span>
+          <span class="kpi-value" id="kpi-prom-sup">-</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- Distribución por Continente (Gráfico interactivo de barras) -->
+    <section class="card continent-section">
+      <div class="card-header">
+        <h2>Distribución Geográfica de Países</h2>
+        <span class="badge" id="badge-continentes">5 continentes</span>
+      </div>
+      <div class="continent-bars" id="continent-bars-container">
+        <!-- Generado dinámicamente -->
+      </div>
+    </section>
+
+    <!-- Panel de Filtros y Búsqueda -->
+    <section class="card filters-card" aria-label="Filtros de Búsqueda">
+      <div class="filters-grid">
+        
+        <!-- Búsqueda por Nombre -->
+        <div class="filter-group filter-search">
+          <label for="input-busqueda">Buscar por Nombre:</label>
+          <div class="search-input-wrapper">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input type="text" id="input-busqueda" placeholder="Ej: Argentina, Japón, bra..." autocomplete="off">
+          </div>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="check-coincidencia-exacta">
+            Coincidencia exacta
+          </label>
+        </div>
+
+        <!-- Filtro por Continente -->
+        <div class="filter-group">
+          <label for="select-continente">Continente:</label>
+          <select id="select-continente">
+            <option value="todos">Todos los continentes</option>
+          </select>
+        </div>
+
+        <!-- Rango Población -->
+        <div class="filter-group">
+          <label>Población (hab):</label>
+          <div class="range-inputs">
+            <input type="number" id="input-pob-min" placeholder="Mínimo" min="0" step="100000">
+            <span class="range-sep">-</span>
+            <input type="number" id="input-pob-max" placeholder="Máximo" min="0" step="100000">
+          </div>
+        </div>
+
+        <!-- Rango Superficie -->
+        <div class="filter-group">
+          <label>Superficie (km²):</label>
+          <div class="range-inputs">
+            <input type="number" id="input-sup-min" placeholder="Mínimo" min="0" step="10000">
+            <span class="range-sep">-</span>
+            <input type="number" id="input-sup-max" placeholder="Máximo" min="0" step="10000">
+          </div>
+        </div>
+
+        <!-- Criterio de Ordenamiento (Ascendente / Descendente) -->
+        <div class="filter-group">
+          <label for="select-orden-clave">Ordenar por:</label>
+          <select id="select-orden-clave">
+            <option value="nombre">Nombre (Alfabético A-Z / Z-A)</option>
+            <option value="poblacion">Población (Habitantes)</option>
+            <option value="superficie">Superficie / Territorio (km²)</option>
+            <option value="continente">Continente</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="select-orden-sentido">Sentido:</label>
+          <select id="select-orden-sentido">
+            <option value="ascending">Ascendente (A-Z / Menor a Mayor)</option>
+            <option value="descending">Descendente (Z-A / Mayor a Menor)</option>
+          </select>
+        </div>
+
+        <!-- Acciones de Filtro -->
+        <div class="filter-group filter-actions">
+          <button type="button" id="btn-limpiar-filtros" class="btn btn-secondary">
+            Limpiar Filtros
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tabla de Países (Accesible y Ordenable según recomendaciones) -->
+    <section class="card table-card">
+      <div class="card-header table-header">
+        <div>
+          <h2>Listado de Países</h2>
+          <span class="table-count" id="table-results-count">Mostrando 0 países</span>
+        </div>
+        <div class="table-quick-load">
+          <span class="quick-load-label">Cargar dataset predeterminado:</span>
+          <button type="button" id="btn-cargar-base" class="btn-text">Dataset Base (25)</button>
+          <span class="bullet">•</span>
+          <button type="button" id="btn-cargar-completo" class="btn-text">Mundial Ampliado (60)</button>
+        </div>
+      </div>
+
+      <!-- Anunciador de estado accesible para lectores de pantalla -->
+      <div id="table-status" role="status" class="visually-hidden"></div>
+
+      <!-- Contenedor scrollable responsivo con accesibilidad -->
+      <div class="table-container" role="region" tabindex="0" aria-label="Tabla de países con ordenamiento interactivo">
+        <table id="tabla-paises">
+          <caption class="visually-hidden">Listado completo de países con datos de población y superficie</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="th-num">#</th>
+              <th scope="col" data-type="text" class="sortable-th">
+                <button type="button" class="btn-sort" data-sort-key="nombre">
+                  País <span class="sort-icon" aria-hidden="true">↕</span>
+                </button>
+              </th>
+              <th scope="col" data-type="text" class="sortable-th">
+                <button type="button" class="btn-sort" data-sort-key="continente">
+                  Continente <span class="sort-icon" aria-hidden="true">↕</span>
+                </button>
+              </th>
+              <th scope="col" data-type="number" class="sortable-th th-num-col">
+                <button type="button" class="btn-sort" data-sort-key="poblacion">
+                  Población (hab) <span class="sort-icon" aria-hidden="true">↕</span>
+                </button>
+              </th>
+              <th scope="col" data-type="number" class="sortable-th th-num-col">
+                <button type="button" class="btn-sort" data-sort-key="superficie">
+                  Superficie (km²) <span class="sort-icon" aria-hidden="true">↕</span>
+                </button>
+              </th>
+              <th scope="col" class="th-actions">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-paises-body">
+            <!-- Filas inyectadas por JS -->
+          </tbody>
+        </table>
+
+        <!-- Mensaje de estado vacío -->
+        <div id="empty-state" class="empty-state" hidden>
+          <div class="empty-icon">🔎</div>
+          <h3>No se encontraron países</h3>
+          <p>No existen registros que coincidan con los filtros aplicados. Intente ajustar los criterios de búsqueda.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Diálogo Nativo: Agregar País -->
+  <dialog id="modal-agregar" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Agregar Nuevo País</h3>
+        <button type="button" class="btn-close" id="btn-cerrar-agregar" aria-label="Cerrar ventana">✕</button>
+      </div>
+      <form id="form-agregar-pais">
+        <div class="form-group">
+          <label for="nuevo-nombre">Nombre del País: *</label>
+          <input type="text" id="nuevo-nombre" required placeholder="Ej: Canadá">
+        </div>
+        <div class="form-group">
+          <label for="nuevo-continente">Continente: *</label>
+          <input type="text" id="nuevo-continente" required placeholder="Ej: América" list="sugerencias-continentes">
+          <datalist id="sugerencias-continentes">
+            <option value="América">
+            <option value="Europa">
+            <option value="Asia">
+            <option value="África">
+            <option value="Oceanía">
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label for="nueva-poblacion">Población (habitantes): *</label>
+          <input type="number" id="nueva-poblacion" min="1" required placeholder="Ej: 38246108">
+        </div>
+        <div class="form-group">
+          <label for="nueva-superficie">Superficie (km²): *</label>
+          <input type="number" id="nueva-superficie" min="1" required placeholder="Ej: 9984670">
+        </div>
+        <div id="error-agregar" class="form-error" hidden></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancelar-agregar">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar País</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Modal Diálogo Nativo: Actualizar País -->
+  <dialog id="modal-actualizar" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Actualizar Datos de País</h3>
+        <button type="button" class="btn-close" id="btn-cerrar-actualizar" aria-label="Cerrar ventana">✕</button>
+      </div>
+      <form id="form-actualizar-pais">
+        <input type="hidden" id="edit-nombre-original">
+        <div class="form-group">
+          <label>País:</label>
+          <p id="edit-nombre-display" class="highlight-text"></p>
+        </div>
+        <div class="form-group">
+          <label for="edit-poblacion">Nueva Población (habitantes): *</label>
+          <input type="number" id="edit-poblacion" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-superficie">Nueva Superficie (km²): *</label>
+          <input type="number" id="edit-superficie" min="1" required>
+        </div>
+        <div id="error-actualizar" class="form-error" hidden></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancelar-actualizar">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Actualizar Datos</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Notificación Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- Pie de Página -->
+  <footer class="app-footer">
+    <p>Tecnicatura Universitaria en Programación a Distancia • Universidad Tecnológica Nacional (UTN)</p>
+    <p class="footer-small">Cátedra: Programación 1 • Proyecto Integrador Python & Frontend Moderno</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# ==============================================================================
+# Dependencias - Trabajo Práctico Integrador (TPI) - Programación 1 UTN
+# ==============================================================================
+# Nota: La aplicación de consola (main.py) y el servidor web (app_web.py)
+# utilizan exclusivamente la biblioteca estándar de Python (sin dependencias obligatorias).
+#
+# La siguiente librería externa solo es requerida para recompilar el PDF académico:
+reportlab>=4.0.0

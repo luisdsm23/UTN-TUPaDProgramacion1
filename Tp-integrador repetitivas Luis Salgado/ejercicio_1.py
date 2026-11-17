@@ -1,64 +1,65 @@
-# ==============================================================================
-# EJERCICIO 1 — “Caja del Kiosco”
-# Objetivo: Simular una compra con validaciones y cálculo de total.
-# ==============================================================================
+#1) Ejercicio 1 — “Caja del Kiosco”
+#Objetivo: Simular una compra con validaciones y cálculo de total.
+#Requisitos:
+#1. Pedir nombre del cliente (solo letras, validar con .isalpha() en while).
+#2. Pedir cantidad de productos a comprar (número entero positivo, validar con .isdigit() en while).
+#3. Por cada producto (usar for):
+#   o Pedir precio (entero, validar .isdigit()).
+#   o Pedir si tiene descuento S/N (validar con while, aceptar s o n en cualquier mayuscula/minuscula).
+#   o Si tiene descuento: aplicar 10% al precio de ese producto.
+#4. Al final mostrar:
+#   o Total sin descuentos
+#   o Total con descuentos
+#   o Ahorro total
+#   o Promedio por producto (usar float y formatear con :.2f, ejem: print(f"{x:.2f}"))
+#Validaciones obligatorias:
+#• Sin try/except.
+#• No aceptar vacío en nombre (si queda vacío, es error).
+#• Cantidad > 0 (si ingresa 0, volver a pedir).
 
-def ejercicio_1():
-    print("\n--- EJERCICIO 1: CAJA DEL KIOSCO ---")
-    
-    # 1. Validación del nombre del cliente (solo letras y no vacío)
+nombre_cliente = input("Cliente: ")
+while not nombre_cliente.isalpha():
+    print("Solo se permiten letras y no puede quedar vacío.")
     nombre_cliente = input("Cliente: ")
-    while not nombre_cliente.isalpha():
-        print("Solo se permiten letras y no puede quedar vacío.")
-        nombre_cliente = input("Cliente: ")
-    
-    # 2. Validación de la cantidad de productos (> 0 y solo dígitos)
+
+cantidad = input("Cantidad de productos: ")
+while not cantidad.isdigit() or int(cantidad) <= 0:
+    print("Ingrese una cantidad válida mayor a 0.")
     cantidad = input("Cantidad de productos: ")
-    while not cantidad.isdigit() or int(cantidad) <= 0:
-        print("Ingrese una cantidad entera positiva mayor a 0.")
-        cantidad = input("Cantidad de productos: ")
-    
-    cantidad_productos = int(cantidad)
-    
-    # Acumuladores para los cálculos
-    total_sin_descuento = 0
-    total_con_descuento = 0.0
-    
-    # 3. Ciclo for por cada producto
-    for i in range(1, cantidad_productos + 1):
-        # Validación del precio del producto
+cantidad = int(cantidad)
+
+total_sin_descuentos = 0
+total_con_descuentos = 0.0
+
+for i in range(1, cantidad + 1):
+    precio = input(f"Producto {i} - Precio: ")
+    while not precio.isdigit() or int(precio) <= 0:
+        print("Ingrese un precio numérico válido.")
         precio = input(f"Producto {i} - Precio: ")
-        while not precio.isdigit() or int(precio) <= 0:
-            print("Ingrese un precio válido (número entero positivo).")
-            precio = input(f"Producto {i} - Precio: ")
-        
-        precio = int(precio)
-        total_sin_descuento += precio
-        
-        # Validación de respuesta de descuento (S/N)
-        desc_resp = input(f"Producto {i} - Descuento (S/N): ").lower()
-        while desc_resp != "s" and desc_resp != "n":
-            print("Ingrese 'S' para Sí o 'N' para No.")
-            desc_resp = input(f"Producto {i} - Descuento (S/N): ").lower()
-        
-        # Aplicación del 10% de descuento si corresponde
-        if desc_resp == "s":
-            precio_final = precio * 0.90
-        else:
-            precio_final = float(precio)
-            
-        total_con_descuento += precio_final
-
-    # 4. Cálculos finales
-    ahorro_total = total_sin_descuento - total_con_descuento
-    promedio_por_producto = total_con_descuento / cantidad_productos
+    precio = int(precio)
     
-    # Muestra de resultados
-    print("\n--- RESUMEN DE COMPRA ---")
-    print(f"Total sin descuentos: ${total_sin_descuento}")
-    print(f"Total con descuentos: ${total_con_descuento:.2f}")
-    print(f"Ahorro: ${ahorro_total:.2f}")
-    print(f"Promedio por producto: ${promedio_por_producto:.2f}")
+    total_sin_descuentos += precio
 
-if __name__ == "__main__":
-    ejercicio_1()
+    descuento = input(f"Producto {i} - Descuento (S/N): ").lower()
+    while descuento != "s" and descuento != "n":
+        print("Ingrese 's' para Sí o 'n' para No.")
+        descuento = input(f"Producto {i} - Descuento (S/N): ").lower()
+
+    if descuento == "s":
+        total_con_descuentos += precio * 0.90
+    else:
+        total_con_descuentos += float(precio)
+
+ahorro = total_sin_descuentos - total_con_descuentos
+promedio = total_con_descuentos / cantidad
+
+print(f"\nTotal sin descuentos: ${total_sin_descuentos}")
+print(f"Total con descuentos: ${total_con_descuentos:.2f}")
+print(f"Ahorro: ${ahorro:.2f}")
+print(f"Promedio por producto: ${promedio:.2f}")
+
+salir = input("\nMarque 0 para salir de la terminal: ")
+while salir != "0":
+    salir = input("Marque 0 para salir de la terminal: ")
+
+
